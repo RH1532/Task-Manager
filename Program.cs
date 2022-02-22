@@ -7,27 +7,27 @@ namespace CPU
 {
     class Program
     {
-        //C:\\Users\\danil\\Desktop\\CPU.TXT
+        //C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe
         static void Main()
         {
-            Process process = Process.Start("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "https://www.youtube.com/watch?v=EEKpuo3jH0E&ab_channel=HideakiUtsumi");
+            Console.WriteLine("enter process path: ");
+            string path = Console.ReadLine();
+            Process process = Process.Start(path);
             PerformanceCounter cpuCounter = new("Process", "% Processor Time", process.ProcessName);
 
             double CPU1, CPU2;
             long RAM1, RAM2;
             int Handle;
 
-            Console.WriteLine("Enter file path: ");
-            string path = Console.ReadLine();
-            Console.WriteLine("Enter time span: ");
+            Console.WriteLine("Enter period: ");
             int time = Console.Read();
-            StreamWriter sw = new(path);
+            StreamWriter sw = new("C:\\Users\\danil\\Desktop\\CPU.TXT");
 
             for(; ; )
             {
-                CPU1 = Math.Round(cpuCounter.NextValue(), 1);
+                CPU1 = Math.Round(cpuCounter.NextValue(), 2);
                 Thread.Sleep(1000);
-                CPU2 = Math.Round(cpuCounter.NextValue(), 1);
+                CPU2 = Math.Round(cpuCounter.NextValue(), 2);
                 RAM1 = process.WorkingSet64;
                 RAM2 = process.PrivateMemorySize64;
                 Handle = process.HandleCount;
