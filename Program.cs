@@ -25,9 +25,9 @@ namespace CPU
 
             for(; ; )
             {
-                CPU1 = Math.Round(cpuCounter.NextValue(), 2);
+                CPU1 = Math.Round(cpuCounter.NextValue(), 1);
                 Thread.Sleep(1000);
-                CPU2 = Math.Round(cpuCounter.NextValue(), 2);
+                CPU2 = Math.Round(cpuCounter.NextValue(), 1);
                 RAM1 = process.WorkingSet64;
                 RAM2 = process.PrivateMemorySize64;
                 Handle = process.HandleCount;
