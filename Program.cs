@@ -10,7 +10,7 @@ namespace CPU
         //C:\\Users\\danil\\Desktop\\CPU.TXT
         static void Main()
         {
-            Process process = Process.Start("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "https://www.youtube.com/watch?v=Wl959QnD3lM&ab_channel=lerrific");
+            Process process = Process.Start("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "https://www.youtube.com/watch?v=EEKpuo3jH0E&ab_channel=HideakiUtsumi");
             PerformanceCounter cpuCounter = new("Process", "% Processor Time", process.ProcessName);
 
             double CPU1, CPU2;
