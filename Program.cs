@@ -5,57 +5,39 @@ using System.Threading;
 
 namespace CPU
 {
-	class Program
-	{
-        public static dynamic GetCPU()
-		{
-            PerformanceCounter cpuCounter = new("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName);
-            dynamic firstValue = cpuCounter.NextValue();
-			Thread.Sleep(1000);
-            dynamic secondValue = cpuCounter.NextValue();
-            return secondValue;
-		}
-        public static dynamic GetWorkingSet()
+    class Program
+    {
+        //C:\\Users\\danil\\Desktop\\CPU.TXT
+        static void Main()
         {
-			Process process = Process.GetCurrentProcess();
-			long Value = process.WorkingSet64;
-            return Value;
-        }
-        public static dynamic GetMemorySize()
-        {
-			Process process = Process.GetCurrentProcess();
-			long Value = process.PrivateMemorySize64;
-            return Value;
-        }
-        public static dynamic GetHandle()
-		{
-			Process process = Process.GetCurrentProcess();
-			int Value = process.HandleCount;
-            return Value;
-        }
-        static void Main() //C:\\Users\\danil\\Desktop\\CPU.TXT
-        {
+            Process process = Process.Start("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "https://www.youtube.com/watch?v=Wl959QnD3lM&ab_channel=lerrific");
+            PerformanceCounter cpuCounter = new("Process", "% Processor Time", process.ProcessName);
+
+            double CPU1, CPU2;
+            long RAM1, RAM2;
+            int Handle;
+
             Console.WriteLine("Enter file path: ");
             string path = Console.ReadLine();
             Console.WriteLine("Enter time span: ");
             int time = Console.Read();
             StreamWriter sw = new(path);
-            ConsoleKeyInfo key;
-            do
+
+            for(; ; )
             {
-                int CPU = (int)GetCPU();
-                long RAM1 = GetWorkingSet();
-                long RAM2 = GetMemorySize();
-                int Handle = GetHandle();
-                Console.WriteLine("\n" + "CPU: " + CPU + "\n" +
+                CPU1 = Math.Round(cpuCounter.NextValue(), 1);
+                Thread.Sleep(1000);
+                CPU2 = Math.Round(cpuCounter.NextValue(), 1);
+                RAM1 = process.WorkingSet64;
+                RAM2 = process.PrivateMemorySize64;
+                Handle = process.HandleCount;
+                Console.WriteLine("\n" + "CPU: " + CPU2+ "\n" +
                     "WorkingSet: " + RAM1 + "\n" +
                     "MemorySize: " + RAM2 + "\n" +
                     "HandleCount: " + Handle);
-                sw.WriteLine(CPU + "; " + RAM1 + "; " + RAM2 + "; " + Handle + ";");
+                sw.WriteLine(CPU2 + ";" + RAM1 + ";" + RAM2 + ";" + Handle + ";");
                 Thread.Sleep(time);
-                key = Console.ReadKey();
-            } while (key.Key != ConsoleKey.Escape);
-            sw.Close();
+            }
         }
     }
 }
